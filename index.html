@@ -1,0 +1,334 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Taye 💘 Forever Valentine?</title>
+
+  <!-- Groovy cute font (free) -->
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --win-gray:#C0C0C0;
+      --win-blue:#000080;
+      --win-dark:#404040;
+      --shadow: 0 20px 60px rgba(0,0,0,.55);
+    }
+
+    *{ box-sizing:border-box; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      overflow:hidden;
+      background:#000;
+      font-family: Tahoma, "MS Sans Serif", "Microsoft Sans Serif", Arial, sans-serif;
+    }
+
+    /* Background photo */
+    .bg{
+      position:fixed; inset:0;
+      background-image: url("assets/myphoto.jpeg");
+      background-size: cover;
+      background-position: center;
+      z-index:0;
+      transform: scale(1.01);
+    }
+    .bg::after{
+      content:"";
+      position:absolute; inset:0;
+      background: rgba(0,0,0,.25);
+    }
+
+    /* === WIN95 DIALOG === */
+    .dialog{
+      position:relative;
+      z-index:2;
+      width:min(560px, 92vw);
+      border:2px solid #ffffff;
+      border-right-color: var(--win-dark);
+      border-bottom-color: var(--win-dark);
+      box-shadow: var(--shadow);
+      background: var(--win-gray);
+      margin: 18vh auto 0;
+    }
+
+    .titlebar{
+      background: var(--win-blue);
+      color:#fff;
+      padding:6px 8px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      font-weight:700;
+      font-size:14px;
+      user-select:none;
+    }
+
+    .winBtns{ display:flex; gap:4px; }
+    .winBtn{
+      width:18px; height:18px;
+      background: var(--win-gray);
+      border:2px solid #ffffff;
+      border-right-color: var(--win-dark);
+      border-bottom-color: var(--win-dark);
+      display:grid; place-items:center;
+      font-weight:900;
+      color:#000;
+      line-height:1;
+      font-size:12px;
+    }
+
+    .content{
+      padding:18px 18px 6px;
+      color:#000;
+      font-size:16px;
+    }
+    .content p{ margin:0 0 10px; }
+    .assameseLine{
+      margin-top:6px;
+      font-size:13px;
+      color:#222;
+    }
+
+    /* Buttons in one line */
+    .btnRow{
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:26px;
+      padding: 14px 18px 18px;
+      position:relative;
+      height:76px;
+    }
+
+    .btn{
+      font-family: Tahoma, "MS Sans Serif", Arial, sans-serif;
+      font-size:14px;
+      padding:8px 22px;
+      background: var(--win-gray);
+      border:2px solid #ffffff;
+      border-right-color: var(--win-dark);
+      border-bottom-color: var(--win-dark);
+      cursor:pointer;
+      user-select:none;
+      min-width:120px;
+    }
+    .btn:active{
+      border:2px solid var(--win-dark);
+      border-right-color:#ffffff;
+      border-bottom-color:#ffffff;
+    }
+
+    /* === YES SCREEN: VIDEO === */
+    .celebrateWrap{
+      position:fixed;
+      inset:0;
+      z-index:10;
+      display:none;
+      background:#000;
+    }
+
+    .celebrationVideo{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+    }
+
+    .videoOverlay{
+      position:absolute;
+      inset:0;
+      background: linear-gradient(
+        to bottom,
+        rgba(0,0,0,0.15),
+        rgba(0,0,0,0.55)
+      );
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding: 22px;
+    }
+
+    .celebrateText{
+      font-family: 'Pacifico', cursive;
+      color: #ffd6e7;
+      font-size: clamp(26px, 4.6vw, 58px);
+      line-height: 1.25;
+      text-shadow:
+        0 6px 20px rgba(0,0,0,0.65),
+        0 0 18px rgba(255,105,180,0.55);
+      animation: floatIn 1.2s ease-out forwards;
+      max-width: 1000px;
+    }
+
+    .celebrateText .mine{
+      display:inline-block;
+      margin-top:10px;
+      font-size: clamp(30px, 5.2vw, 68px);
+      color:#ff9ecf;
+      animation: pulse 1.6s ease-in-out infinite;
+    }
+
+    @keyframes floatIn{
+      from{ opacity:0; transform: translateY(28px) scale(0.96); }
+      to{ opacity:1; transform: translateY(0) scale(1); }
+    }
+    @keyframes pulse{
+      0%,100%{ transform: scale(1); }
+      50%{ transform: scale(1.08); }
+    }
+
+    /* Tiny helper */
+    .hint{
+      position:fixed;
+      left:12px; bottom:10px;
+      z-index:20;
+      color:#ffffffc8;
+      font-size:12px;
+      text-shadow: 0 6px 18px rgba(0,0,0,.55);
+      user-select:none;
+      display:none;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bg"></div>
+
+  <!-- FIRST PAGE -->
+  <div class="dialog" id="dialog">
+    <div class="titlebar">
+      <div>Vulnerability detected</div>
+      <div class="winBtns" aria-hidden="true">
+        <div class="winBtn">_</div>
+        <div class="winBtn">▢</div>
+        <div class="winBtn">×</div>
+      </div>
+    </div>
+
+    <div class="content">
+      <p><b>Warning!</b> You are about to connect deeply 🫶</p>
+      <p style="margin-top:10px;"><b>Taye, will you be my forever Valentine?</b></p>
+      <div class="assameseLine">P.S. Moi tumak bohut bohut bhal paau 💛</div>
+    </div>
+
+    <div class="btnRow" id="btnRow">
+      <button class="btn" id="yesBtn">YES</button>
+      <button class="btn" id="noBtn">NO</button>
+    </div>
+  </div>
+
+  <!-- YES PAGE -->
+  <div class="celebrateWrap" id="celebrateWrap">
+    <video
+      id="celebrationVideo"
+      class="celebrationVideo"
+      src="assets/myvideo.mp4"
+      playsinline
+      preload="auto">
+    </video>
+
+    <div class="videoOverlay">
+      <div class="celebrateText">
+        You have no idea how good it’s about to get,<br>
+        <span class="mine">Taye you are MINE 💋💖</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sounds -->
+  <audio id="dodgeSound" src="assets/cute-cat-352656.mp3" preload="auto"></audio>
+  <audio id="yesSound" src="assets/cute-character-wee-3-188163.mp3" preload="auto"></audio>
+
+  <div class="hint" id="hint">If sound/video doesn’t start, tap once anywhere then press YES.</div>
+
+  <script>
+    const dialog = document.getElementById("dialog");
+    const celebrateWrap = document.getElementById("celebrateWrap");
+
+    const yesBtn = document.getElementById("yesBtn");
+    const noBtn  = document.getElementById("noBtn");
+    const btnRow = document.getElementById("btnRow");
+
+    const dodgeSound = document.getElementById("dodgeSound");
+    const yesSound   = document.getElementById("yesSound");
+
+    const video = document.getElementById("celebrationVideo");
+    const hint = document.getElementById("hint");
+
+    function playAudio(el){
+      try{
+        el.currentTime = 0;
+        el.play();
+      }catch(e){}
+    }
+
+    // NO dodges ONLY when clicked/tapped
+    function dodgeNo(){
+      const row = btnRow.getBoundingClientRect();
+      const btn = noBtn.getBoundingClientRect();
+
+      // Move horizontally within the row so it stays aligned
+      const pad = 6;
+      const maxX = Math.max(pad, row.width - btn.width - pad);
+      const targetLeft = pad + Math.random() * maxX;
+
+      // Convert to a translateX relative to the centered flex layout
+      // Reset first to measure baseline
+      noBtn.style.transform = "translateX(0)";
+      const btnNow = noBtn.getBoundingClientRect();
+      const delta = targetLeft - (btnNow.left - row.left);
+
+      noBtn.style.transform = `translateX(${delta}px)`;
+
+      playAudio(dodgeSound);
+      if (navigator.vibrate) navigator.vibrate(25);
+    }
+
+    noBtn.addEventListener("click", (e)=>{
+      e.preventDefault();
+      dodgeNo();
+    });
+
+    // Autoplay policies: "unlock" media on first interaction
+    document.addEventListener("pointerdown", async ()=>{
+      try{
+        await dodgeSound.play(); dodgeSound.pause(); dodgeSound.currentTime = 0;
+      }catch(e){}
+      try{
+        await yesSound.play(); yesSound.pause(); yesSound.currentTime = 0;
+      }catch(e){}
+      try{
+        // prime video (some browsers require it)
+        video.muted = true;
+        await video.play();
+        video.pause();
+        video.currentTime = 0;
+      }catch(e){
+        hint.style.display = "block";
+      }
+    }, {once:true});
+
+    yesBtn.addEventListener("click", async ()=>{
+      // play celebration sound
+      playAudio(yesSound);
+
+      // show video page
+      dialog.style.display = "none";
+      celebrateWrap.style.display = "block";
+
+      // play video (muted for autoplay safety; you can unmute if your video has sound and you want it)
+      try{
+        video.currentTime = 0;
+        video.muted = true;      // keeps it reliable across iOS/Chrome
+        video.loop = true;       // optional: keep looping
+        await video.play();
+      }catch(e){
+        hint.style.display = "block";
+      }
+    });
+  </script>
+</body>
+</html>
